@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <RootNamespace>Kafka_WET</RootNamespace>
+    <Authors>Lars Mudde</Authors>
+    <Company>Capgemini</Company>
   </PropertyGroup>
 
   <ItemGroup>

@@ -7,7 +7,6 @@ namespace Kafka_WET.Domain
 {
     public class Inschrijving
     {
-        public Guid Id { get; set; }
         public string Naam { get; set; }
     }
 }
