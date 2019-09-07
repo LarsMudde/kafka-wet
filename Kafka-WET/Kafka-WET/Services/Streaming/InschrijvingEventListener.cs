@@ -60,11 +60,11 @@ namespace Kafka_WET.Services.Streaming
                 Console.BackgroundColor = ConsoleColor.Green;
                 Console.ForegroundColor = ConsoleColor.Black;
 
+                // Print the received message 
                 Console.WriteLine($"Message with traceid: {message.Header.TraceId} bevat inschrijving met naam: {message.inschrijving.Naam}");
 
                 // Change back color to default
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ResetColor();
 
             }
         }
