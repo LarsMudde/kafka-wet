@@ -20,7 +20,7 @@ namespace Kafka_WET.Controllers
             _inschrijvingService = inschrijvingsService;
         }
 
-        [HttpPost("/inschrijving/{inschrijving}")]
+        [HttpPost("/inschrijving")]
         public async Task<IActionResult> PostInschrijving([FromBody] Inschrijving inschrijving)
         {
             await this._inschrijvingService.PublishInschrijvingAsync(inschrijving);
