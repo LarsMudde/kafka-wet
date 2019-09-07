@@ -56,7 +56,15 @@ namespace Kafka_WET.Services.Streaming
                 // var inschrijvingService = scope.ServiceProvider.GetRequiredService<IInschrijvingService>();
                 // var test = await testService.GetTestAsync(message.inschrijving.Id, cancellation);
 
+                // Change color to make msg stand out
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Black;
+
                 Console.WriteLine($"Message with traceid: {message.Header.TraceId} bevat inschrijving met naam: {message.inschrijving.Naam}");
+
+                // Change back color to default
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
 
             }
         }

@@ -21,10 +21,12 @@ namespace Kafka_WET.Services.Service
 
         public async Task PublishInschrijvingAsync(Inschrijving inschrijving)
         {
+
             await _publisher.PublishAsync(new InschrijvingEvent(Guid.NewGuid(), Guid.NewGuid())
             {
                  inschrijving = inschrijving
             });
+
         }
 
         public async Task ProcessInschrijvingAsync(Guid inschrijvingId, CancellationToken cancellation = default)

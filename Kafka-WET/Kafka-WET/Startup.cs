@@ -15,13 +15,20 @@ namespace Kafka_WET
 {
     public class Startup
     {
+
+        // Enable or disable event listeners
+        private bool enableEventlisteners;
+        public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
+
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            enableEventlisteners = configuration.GetValue<bool>("KafkaListenerEnabled");
         }
 
-        public IConfiguration Configuration { get; }
-        public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -34,9 +41,12 @@ namespace Kafka_WET
             // Streaming configuration
             services.Configure<KafkaConfig>(Configuration.GetSection(nameof(KafkaConfig)));
 
-            // Streaming listener
-            services.AddSingleton<IConsumer<InschrijvingEvent>, Consumer<InschrijvingEvent>>();
-            services.AddHostedService<InschrijvingEventListener>();
+            // Streaming event listeners
+            if (enableEventlisteners)
+            {
+                services.AddSingleton<IConsumer<InschrijvingEvent>, Consumer<InschrijvingEvent>>();
+                services.AddHostedService<InschrijvingEventListener>();
+            }
 
             // Streaming publisher
             services.AddSingleton<IPublisher<InschrijvingEvent>, Publisher<InschrijvingEvent>>();
