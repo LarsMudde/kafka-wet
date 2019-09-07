@@ -1,4 +1,7 @@
 ﻿using AspNetCore.Extensions.Streaming.Configuration;
+using AspNetCore.Extensions.Streaming.Consumer;
+using AspNetCore.Extensions.Streaming.Publisher;
+using Kafka_WET.Domain.Events;
 using Kafka_WET.Services.Service;
 using Kafka_WET.Services.Streaming;
 using Microsoft.AspNetCore.Builder;
@@ -28,9 +31,15 @@ namespace Kafka_WET
             // Configure services
             services.AddTransient<IInschrijvingService, InschrijvingService>();
 
-            // Streaming
+            // Streaming configuration
             services.Configure<KafkaConfig>(Configuration.GetSection(nameof(KafkaConfig)));
+
+            // Streaming listener
+            services.AddSingleton<IConsumer<InschrijvingEvent>, Consumer<InschrijvingEvent>>();
             services.AddHostedService<InschrijvingEventListener>();
+
+            // Streaming publisher
+            services.AddSingleton<IPublisher<InschrijvingEvent>, Publisher<InschrijvingEvent>>();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
