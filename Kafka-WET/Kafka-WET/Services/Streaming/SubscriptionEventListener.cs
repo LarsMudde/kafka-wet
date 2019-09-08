@@ -61,7 +61,7 @@ namespace Kafka_WET.Services.Streaming
                 Console.ForegroundColor = ConsoleColor.Black;
 
                 // Print the received message 
-                Console.WriteLine($"Message with traceid: {message.Header.TraceId} bevat subscription met naam: {message.subscription.Naam}");
+                Console.WriteLine($"Message with traceid: {message.Header.TraceId} bevat subscription met naam: {message.subscription.Name}");
 
                 // Change back color to default
                 Console.ResetColor();

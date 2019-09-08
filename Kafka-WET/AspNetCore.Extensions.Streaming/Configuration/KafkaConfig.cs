@@ -80,7 +80,7 @@ namespace AspNetCore.Extensions.Streaming.Configuration
             return new Dictionary<string, object>
             {
                 {"auto.commit.interval.ms", AutoCommitInterval.GetValueOrDefault(5000)},
-                {"auto.offset.reset", AutoOffsetReset.GetValueOrDefault(Configuration.AutoOffsetReset.Latest).ToString().ToLower()},
+                {"auto.offset.reset", AutoOffsetReset.GetValueOrDefault(Configuration.AutoOffsetReset.Earliest).ToString().ToLower()},
                 {"bootstrap.servers", string.Join(",", BootstrapServers)},
                 {"client.id", ClientId ?? $"{Assembly.GetEntryAssembly().FullName.ToLower()}-{Environment.MachineName.ToLower()}"},
                 {"enable.auto.commit", EnableAutoCommit.GetValueOrDefault(false)},
