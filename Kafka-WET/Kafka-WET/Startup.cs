@@ -36,7 +36,7 @@ namespace Kafka_WET
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Configure services
-            services.AddTransient<IInschrijvingService, InschrijvingService>();
+            services.AddTransient<ISubscriptionService, SubscriptionService>();
 
             // Streaming configuration
             services.Configure<KafkaConfig>(Configuration.GetSection(nameof(KafkaConfig)));
@@ -44,12 +44,12 @@ namespace Kafka_WET
             // Streaming event listeners
             if (enableEventlisteners)
             {
-                services.AddSingleton<IConsumer<InschrijvingEvent>, Consumer<InschrijvingEvent>>();
-                services.AddHostedService<InschrijvingEventListener>();
+                services.AddSingleton<IConsumer<SubscriptionEvent>, Consumer<SubscriptionEvent>>();
+                services.AddHostedService<SubscriptionEventListener>();
             }
 
             // Streaming publisher
-            services.AddSingleton<IPublisher<InschrijvingEvent>, Publisher<InschrijvingEvent>>();
+            services.AddSingleton<IPublisher<SubscriptionEvent>, Publisher<SubscriptionEvent>>();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Kafka_WET.Domain
 {
-    public class Inschrijving
+    public class Subscription
     {
-        public string Naam { get; set; }
+        public string name { get; set; }
     }
 }

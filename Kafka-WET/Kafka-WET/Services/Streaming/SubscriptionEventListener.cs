@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 
 namespace Kafka_WET.Services.Streaming
 {
-    public class InschrijvingEventListener : IHostedService, IDisposable
+    public class SubscriptionEventListener : IHostedService, IDisposable
     {
 
-        private readonly ILogger<InschrijvingEventListener> _logger;
+        private readonly ILogger<SubscriptionEventListener> _logger;
         private Task _executingTask;
         private readonly CancellationTokenSource _stoppingCts;
-        private readonly IConsumer<InschrijvingEvent> _consumer;
+        private readonly IConsumer<SubscriptionEvent> _consumer;
         private readonly IServiceProvider _serviceProvider;
 
-        public InschrijvingEventListener(ILogger<InschrijvingEventListener> logger, IConsumer<InschrijvingEvent> consumer, IServiceProvider serviceProvider)
+        public SubscriptionEventListener(ILogger<SubscriptionEventListener> logger, IConsumer<SubscriptionEvent> consumer, IServiceProvider serviceProvider)
         {
             _logger = logger;
             _consumer = consumer;
@@ -31,7 +31,7 @@ namespace Kafka_WET.Services.Streaming
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Background Service InschrijvingEventListener is starting.");
+            _logger.LogInformation("Background Service SubscriptionEventListener is starting.");
 
             // Store the task we're executing
             _executingTask = Task.Run(() => _consumer.Listen(async message => await HandleMessageAsync(message, _stoppingCts.Token), _stoppingCts.Token), cancellationToken);
@@ -47,21 +47,21 @@ namespace Kafka_WET.Services.Streaming
             return Task.CompletedTask;
         }
 
-        private async Task HandleMessageAsync(InschrijvingEvent message, CancellationToken cancellation)
+        private async Task HandleMessageAsync(SubscriptionEvent message, CancellationToken cancellation)
         {
             using (var scope = _serviceProvider.CreateScope())
             {
 
                 // possible room for expansion?
-                // var inschrijvingService = scope.ServiceProvider.GetRequiredService<IInschrijvingService>();
-                // var test = await testService.GetTestAsync(message.inschrijving.Id, cancellation);
+                // var subscriptionService = scope.ServiceProvider.GetRequiredService<ISubscriptionService>();
+                // var test = await testService.GetTestAsync(message.subscription.Id, cancellation);
 
                 // Change color to make msg stand out
                 Console.BackgroundColor = ConsoleColor.Green;
                 Console.ForegroundColor = ConsoleColor.Black;
 
                 // Print the received message 
-                Console.WriteLine($"Message with traceid: {message.Header.TraceId} bevat inschrijving met naam: {message.inschrijving.Naam}");
+                Console.WriteLine($"Message with traceid: {message.Header.TraceId} bevat subscription met naam: {message.subscription.Naam}");
 
                 // Change back color to default
                 Console.ResetColor();

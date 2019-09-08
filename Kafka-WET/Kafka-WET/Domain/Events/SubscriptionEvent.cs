@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Kafka_WET.Domain.Events
 {
-    public class InschrijvingEvent : Event
+    public class SubscriptionEvent : Event
     {
-        public InschrijvingEvent(Guid traceId, Guid onBehalfOf) : base(traceId, onBehalfOf)
+        public SubscriptionEvent(Guid traceId, Guid onBehalfOf) : base(traceId, onBehalfOf)
         {
         }
 
-        public Inschrijving inschrijving { get; set; }
+        public Subscription subscription { get; set; }
      }
 }
 
